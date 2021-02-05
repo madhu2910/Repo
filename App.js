@@ -1,40 +1,86 @@
 import React from "react";
-import { StyleSheet, Text, View ,TouchableNativeFeedback, Image, SafeAreaView, Button, Alert, FlatList} from "react-native";
-
+import { StyleSheet, Text, View ,TouchableOpacity, Image, StatusBar,ScrollView, Button, Alert, FlatList} from "react-native";
+import demodata from '.demodata/';
 class App extends React.Component {
-  constructor()
+  constructor(props)
   {
-    super()
+    super(props);
     this.state={
-      data:[]
-    }
+      isLoading:false,
+      demodata:[
+        {name: 'Michael'},
+    {name: 'Lindsay'},
+    {name: 'Tobias'},
+    {name: 'Byron'},
+    {name:'George'},
+    {name: 'Rachel'}
+      ]
+    };
   }
-  componentDidMount()
-  {
-    this.apiCall()
+  componentDidMount(){
+   let arr= this.state.demodata.map((item, index)=>{
+     item.isSelect = false
+     return {...item};
+
+   })
+   this.setState({demodata : arr});
+   console.log('arr data ==>', arr);
   }
-  async apiCall()
-  {
-let resp = await fetch("https://reqres.in/api/users?page=2")
-let respjson= await resp.json()
-console.log(respjson)
-this.setState({data: resp.json.data})
+
+  goToLoad = () => {
+    this.setState({isLoading: true});
+
+  };
+  selectionHandler=()=> {
+    isSelect : false
+
   }
+  
 render(){
-  return (
-    <View>
-      <Text style={{ fontSize: 100}}>API Call </Text>
-      <FlatList
-      data={this.state.data}
-      renderItem={({item})=>
-      <Text style = {{fontSize:40, backgroundColor:'skyblue', margin:15}}>{item.title}</Text>}
-      />
-                               
-      </View>
-  )
-}
-}
-export default App
-    
-      
+  const {isLoading, demodata} = this.state;
+
+  
         
+  return (
+    <View style= {{flex: 1}}>
+      <StatusBar barStyle="dark-content"/>
+      
+        <View
+        style={{
+          flex:1,
+          justifyContent:'center',
+          alignItems: 'center',
+        
+        
+        }}/>
+        
+          {demodata.map((item, index)=> {
+            return(
+              <TouchableOpacity
+              onPress={()=> this.selectionHandler()}
+              style={{
+                marginTop: 20,
+                height: 50,
+                width: '80%',
+                borderRadius: 12,
+                backgroundColor: 'green',
+                justifyContent:'space-between',
+                flexDirection:'row',
+                paddingHorizontal: 25,
+                alignItems: 'center',
+              }}>
+                <Text style={{color: 'white', fontSize: 18}}>
+                  {item.name}
+                  </Text>
+                  <Text style={{color: 'white', fontSize: 18}}>
+                    
+                </Text>
+              </TouchableOpacity>
+          
+          
+            
+
+              
+            );
+            })}</View>
+
