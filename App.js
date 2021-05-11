@@ -1,10 +1,12 @@
-import * as React from 'react';
+import  React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import Login from './components/login';
-import Signup from './components/signup';
-import Dashboard from './components/dashboard';
+
+import Login from './Component/Login';
+import Signup from './Component/Signup';
+import Verification from './Component/Verification';
+
 
 const Stack = createStackNavigator();
 
@@ -36,13 +38,14 @@ function MyStack() {
         }
       />
       <Stack.Screen 
-       name="Dashboard" 
-       component={Dashboard} 
+       name="Verification" 
+       component={Verification} 
        options={
-         { title: 'Dashboard' },
+         { title: 'Verification' },
          {headerLeft: null} 
        }
       />
+      
     </Stack.Navigator>
   );
 }
